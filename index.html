@@ -5,25 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Tracker</title>
     <style>
-        /* --- LIGHT PINK & PURPLE FLORAL THEME --- */
+        /* --- ALL PINK POIS & ITALICS THEME --- */
         :root {
-            --bg-color: #F3E5F5;       /* Very Light Purple */
-            --card-bg: #ffffff;        /* White */
-            --primary-purple: #BA68C8; /* Soft Purple */
-            --primary-hover: #9C27B0;  /* Deeper Purple */
-            --soft-pink: #F8BBD0;      /* Light Pink */
-            --input-border: #E1BEE7;   /* Lilac Border */
-            --text-color: #4A148C;     /* Dark Purple Text */
-            --amount-color: #D81B60;   /* Deep Pink */
+            --bg-color: #FCE4EC;       /* Very Light Pink Background */
+            --dot-color: #F48FB1;      /* Pink for Polka Dots */
+            --card-bg: #fff0f6;        /* Pale Pinkish White for cards */
+            --primary-pink: #D81B60;   /* Strong Pink */
+            --primary-hover: #AD1457;  /* Darker Pink */
+            --soft-pink: #F8BBD0;      /* Soft Pink Border/Accents */
+            --input-border: #F06292;   /* Medium Pink Border */
+            --text-color: #880E4F;     /* Deep Maroon/Pink Text */
+            --amount-color: #C2185B;   /* Vivid Pink for numbers */
         }
 
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-style: italic; /* Requested Italics Font */
             background-color: var(--bg-color);
-            /* Creating a simple CSS flower/dot pattern */
-            background-image:  radial-gradient(circle, #E1BEE7 2px, transparent 2.5px), radial-gradient(circle, #E1BEE7 2px, transparent 2.5px);
-            background-size: 30px 30px;
-            background-position: 0 0, 15px 15px;
+            
+            /* CSS Polka Dots (Pois) Pattern */
+            background-image:  radial-gradient(var(--dot-color) 3px, transparent 3.5px), radial-gradient(var(--dot-color) 3px, transparent 3.5px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            
             color: var(--text-color);
             max-width: 600px; 
             margin: 0 auto; 
@@ -32,56 +36,62 @@
 
         h1 { 
             text-align: center; 
-            color: var(--primary-hover); 
+            color: var(--primary-pink); 
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
-            text-shadow: 2px 2px 0px #F8BBD0;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.5);
         }
         
         /* Form Styling */
         form { 
             background: var(--card-bg); 
             padding: 2rem; 
-            border-radius: 20px; 
-            box-shadow: 0 10px 25px rgba(186, 104, 200, 0.2); /* Purple shadow */
+            border-radius: 25px; 
+            box-shadow: 0 10px 25px rgba(216, 27, 96, 0.15); 
             display: flex; 
             flex-direction: column; 
             gap: 15px; 
-            border: 3px solid var(--soft-pink); 
+            border: 4px solid var(--soft-pink); 
         }
 
         input { 
             padding: 12px; 
             font-size: 1rem; 
             border: 2px solid var(--input-border); 
-            border-radius: 12px; 
+            border-radius: 15px; 
             outline: none;
             color: var(--text-color);
+            background-color: #ffffff;
+            font-style: italic; /* Inputs also italic */
             transition: all 0.3s ease;
         }
 
         input:focus {
-            border-color: var(--primary-purple);
-            background-color: #FFF0F5; /* Lavender Blush on focus */
-            box-shadow: 0 0 8px rgba(186, 104, 200, 0.2);
+            border-color: var(--primary-pink);
+            background-color: #FCE4EC; 
+            box-shadow: 0 0 8px rgba(216, 27, 96, 0.2);
         }
 
         button { 
-            background: linear-gradient(45deg, var(--primary-purple), #F06292); 
+            background: linear-gradient(45deg, #EC407A, #D81B60); 
             color: white; 
             border: none; 
             padding: 14px;
             font-size: 1.1rem;
-            border-radius: 12px;
+            border-radius: 15px;
             cursor: pointer; 
             font-weight: bold; 
+            font-style: italic;
             transition: transform 0.1s, box-shadow 0.2s;
-            box-shadow: 0 4px 10px rgba(240, 98, 146, 0.3);
+            box-shadow: 0 4px 10px rgba(216, 27, 96, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         button:hover { 
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(240, 98, 146, 0.4);
+            box-shadow: 0 6px 12px rgba(216, 27, 96, 0.4);
+            background: linear-gradient(45deg, #F06292, #E91E63);
         }
 
         button:active {
@@ -100,14 +110,14 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            border-left: 6px solid var(--soft-pink);
-            box-shadow: 0 4px 6px rgba(156, 39, 176, 0.05);
+            border-left: 6px solid var(--input-border);
+            box-shadow: 0 4px 6px rgba(136, 14, 79, 0.05);
             transition: transform 0.2s;
         }
 
         .expense-item:hover {
             transform: scale(1.02);
-            border-left-color: var(--primary-purple);
+            border-left-color: var(--primary-pink);
         }
 
         .expense-info { display: flex; flex-direction: column; }
@@ -115,14 +125,15 @@
         .expense-desc {
             font-weight: bold;
             font-size: 1.1rem;
-            color: var(--primary-hover);
+            color: var(--primary-pink);
         }
 
         .meta { 
             font-size: 0.85rem; 
-            color: #8E24AA; 
+            color: var(--text-color); 
+            opacity: 0.8;
             margin-top: 4px;
-            background-color: #F3E5F5;
+            background-color: var(--bg-color);
             padding: 3px 8px;
             border-radius: 10px;
             width: fit-content;
@@ -132,30 +143,36 @@
             font-weight: bold; 
             color: var(--amount-color); 
             font-size: 1.3rem; 
-            background-color: #FCE4EC; 
+            background-color: #F8BBD0; 
             padding: 5px 12px;
             border-radius: 10px;
+        }
+        
+        /* Placeholder color */
+        ::placeholder {
+            color: #F48FB1;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
 
-    <h1>🌸 My Expenses 🌸</h1>
+    <h1>My Expenses</h1>
 
     <!-- Form to add new expense -->
     <form id="expenseForm">
-        <input type="text" id="description" placeholder="Description (e.g. Flowers)" required>
+        <input type="text" id="description" placeholder="Description (e.g. Lipstick)" required>
         <!-- Changed type to text and added inputmode to support commas and dots freely -->
         <input type="text" inputmode="decimal" id="amount" placeholder="Amount (e.g. 25,50)" required>
-        <input type="text" id="category" placeholder="Category (e.g. Garden)" required>
+        <input type="text" id="category" placeholder="Category (e.g. Beauty)" required>
         <input type="date" id="date" required>
         
-        <button type="submit">Add Expense 🌷</button>
+        <button type="submit">Add Expense</button>
     </form>
 
     <!-- Container for the list -->
     <ul id="expenseList">
-        <p style="text-align:center; color:#BA68C8;">Loading your expenses...</p>
+        <p style="text-align:center; color:var(--primary-pink);">Loading your expenses...</p>
     </ul>
 
     <script>
@@ -176,7 +193,7 @@
                 list.innerHTML = '';
 
                 if (result.data.length === 0) {
-                    list.innerHTML = '<p style="text-align:center; color:#BA68C8;">No expenses found yet 🌸</p>';
+                    list.innerHTML = '<p style="text-align:center; color:var(--primary-pink);">No expenses found yet</p>';
                     return;
                 }
 
