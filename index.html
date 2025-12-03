@@ -5,40 +5,156 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Tracker</title>
     <style>
-        /* Simple CSS for layout */
-        body { font-family: sans-serif; max-width: 600px; margin: 2rem auto; padding: 0 1rem; }
-        h1 { text-align: center; color: #333; }
+        /* --- LIGHT PINK & PURPLE FLORAL THEME --- */
+        :root {
+            --bg-color: #F3E5F5;       /* Very Light Purple */
+            --card-bg: #ffffff;        /* White */
+            --primary-purple: #BA68C8; /* Soft Purple */
+            --primary-hover: #9C27B0;  /* Deeper Purple */
+            --soft-pink: #F8BBD0;      /* Light Pink */
+            --input-border: #E1BEE7;   /* Lilac Border */
+            --text-color: #4A148C;     /* Dark Purple Text */
+            --amount-color: #D81B60;   /* Deep Pink */
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: var(--bg-color);
+            /* Creating a simple CSS flower/dot pattern */
+            background-image:  radial-gradient(circle, #E1BEE7 2px, transparent 2.5px), radial-gradient(circle, #E1BEE7 2px, transparent 2.5px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            color: var(--text-color);
+            max-width: 600px; 
+            margin: 0 auto; 
+            padding: 2rem 1rem;
+        }
+
+        h1 { 
+            text-align: center; 
+            color: var(--primary-hover); 
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 0px #F8BBD0;
+        }
         
         /* Form Styling */
-        form { background: #f4f4f4; padding: 1.5rem; border-radius: 8px; display: flex; flex-direction: column; gap: 10px; }
-        input, button { padding: 10px; font-size: 1rem; border: 1px solid #ddd; border-radius: 4px; }
-        button { background-color: #0070f3; color: white; border: none; cursor: pointer; font-weight: bold; }
-        button:hover { background-color: #005bb5; }
+        form { 
+            background: var(--card-bg); 
+            padding: 2rem; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 25px rgba(186, 104, 200, 0.2); /* Purple shadow */
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+            border: 3px solid var(--soft-pink); 
+        }
+
+        input { 
+            padding: 12px; 
+            font-size: 1rem; 
+            border: 2px solid var(--input-border); 
+            border-radius: 12px; 
+            outline: none;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: var(--primary-purple);
+            background-color: #FFF0F5; /* Lavender Blush on focus */
+            box-shadow: 0 0 8px rgba(186, 104, 200, 0.2);
+        }
+
+        button { 
+            background: linear-gradient(45deg, var(--primary-purple), #F06292); 
+            color: white; 
+            border: none; 
+            padding: 14px;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            cursor: pointer; 
+            font-weight: bold; 
+            transition: transform 0.1s, box-shadow 0.2s;
+            box-shadow: 0 4px 10px rgba(240, 98, 146, 0.3);
+        }
+
+        button:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(240, 98, 146, 0.4);
+        }
+
+        button:active {
+            transform: translateY(2px);
+            box-shadow: none;
+        }
 
         /* List Styling */
         #expenseList { list-style: none; padding: 0; margin-top: 2rem; }
-        .expense-item { background: white; border-bottom: 1px solid #eee; padding: 1rem; display: flex; justify-content: space-between; align-items: center; }
+
+        .expense-item { 
+            background: var(--card-bg); 
+            border-radius: 15px;
+            margin-bottom: 12px;
+            padding: 1rem 1.5rem; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-left: 6px solid var(--soft-pink);
+            box-shadow: 0 4px 6px rgba(156, 39, 176, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .expense-item:hover {
+            transform: scale(1.02);
+            border-left-color: var(--primary-purple);
+        }
+
         .expense-info { display: flex; flex-direction: column; }
-        .expense-amount { font-weight: bold; color: #e00; font-size: 1.2rem; }
-        .meta { font-size: 0.85rem; color: #666; margin-top: 4px; }
+        
+        .expense-desc {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--primary-hover);
+        }
+
+        .meta { 
+            font-size: 0.85rem; 
+            color: #8E24AA; 
+            margin-top: 4px;
+            background-color: #F3E5F5;
+            padding: 3px 8px;
+            border-radius: 10px;
+            width: fit-content;
+        }
+
+        .expense-amount { 
+            font-weight: bold; 
+            color: var(--amount-color); 
+            font-size: 1.3rem; 
+            background-color: #FCE4EC; 
+            padding: 5px 12px;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
 
-    <h1>My Expenses</h1>
+    <h1>🌸 My Expenses 🌸</h1>
 
+    <!-- Form to add new expense -->
     <form id="expenseForm">
-        <input type="text" id="description" placeholder="Description (e.g. Lunch)" required>
-        <input type="number" id="amount" placeholder="Amount (e.g. 15)" required>
-        
-        <input type="text" id="category" placeholder="Category (e.g. Food)" required>
+        <input type="text" id="description" placeholder="Description (e.g. Flowers)" required>
+        <input type="number" id="amount" placeholder="Amount (e.g. 25)" required>
+        <input type="text" id="category" placeholder="Category (e.g. Garden)" required>
         <input type="date" id="date" required>
         
-        <button type="submit">Add Expense</button>
+        <button type="submit">Add Expense 🌷</button>
     </form>
 
+    <!-- Container for the list -->
     <ul id="expenseList">
-        <p style="text-align:center; color:#888;">Loading expenses...</p>
+        <p style="text-align:center; color:#BA68C8;">Loading your expenses...</p>
     </ul>
 
     <script>
@@ -59,7 +175,7 @@
                 list.innerHTML = '';
 
                 if (result.data.length === 0) {
-                    list.innerHTML = '<p style="text-align:center; color:#888;">No expenses found yet.</p>';
+                    list.innerHTML = '<p style="text-align:center; color:#BA68C8;">No expenses found yet 🌸</p>';
                     return;
                 }
 
@@ -69,7 +185,7 @@
                     li.className = 'expense-item';
                     li.innerHTML = `
                         <div class="expense-info">
-                            <strong>${expense.description}</strong>
+                            <span class="expense-desc">${expense.description}</span>
                             <span class="meta">${expense.category} • ${expense.date}</span>
                         </div>
                         <div class="expense-amount">-$${expense.amount}</div>
@@ -78,7 +194,7 @@
                 });
             } catch (error) {
                 console.error('Error fetching data:', error);
-                list.innerHTML = '<p style="color:red; text-align:center;">Error loading data.</p>';
+                list.innerHTML = '<p style="color:var(--amount-color); text-align:center;">Error loading data.</p>';
             }
         }
 
