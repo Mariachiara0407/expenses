@@ -145,7 +145,8 @@
     <!-- Form to add new expense -->
     <form id="expenseForm">
         <input type="text" id="description" placeholder="Description (e.g. Flowers)" required>
-        <input type="number" id="amount" placeholder="Amount (e.g. 25)" required>
+        <!-- Changed type to text and added inputmode to support commas and dots freely -->
+        <input type="text" inputmode="decimal" id="amount" placeholder="Amount (e.g. 25,50)" required>
         <input type="text" id="category" placeholder="Category (e.g. Garden)" required>
         <input type="date" id="date" required>
         
@@ -202,13 +203,24 @@
         form.addEventListener('submit', async (e) => {
             e.preventDefault(); // Stop page from reloading
 
+            // Get the raw amount string
+            const rawAmount = document.getElementById('amount').value;
+            // Replace comma with dot for calculation
+            const cleanedAmount = rawAmount.replace(',', '.');
+
             // Gather data from inputs
             const expenseData = {
                 description: document.getElementById('description').value,
-                amount: Number(document.getElementById('amount').value),
+                amount: Number(cleanedAmount),
                 category: document.getElementById('category').value,
                 date: document.getElementById('date').value
             };
+
+            // Validate that the conversion resulted in a real number
+            if (isNaN(expenseData.amount)) {
+                alert("Please enter a valid number for the amount");
+                return;
+            }
 
             try {
                 const response = await fetch(API_URL, {
